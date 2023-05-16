@@ -9,5 +9,10 @@ class TicTacToeGame:
             [Cell.EMPTY,Cell.EMPTY,Cell.EMPTY]
         ]
     
+    def play(self, cell_number:int):
+        return self
+    
 class Cell(Enum):
     EMPTY = " "
+    CROSS = "X"
+    ROUND = "O"
