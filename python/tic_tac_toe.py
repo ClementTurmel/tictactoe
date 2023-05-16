@@ -21,8 +21,6 @@ cell_to_x_y =    {
 
 class TicTacToeGame:
 
-    
-    
     def __init__(self) -> None:
         self.grid = [
             [Cell.EMPTY,Cell.EMPTY,Cell.EMPTY],
