@@ -21,12 +21,16 @@ cell_to_x_y =    {
 
 class TicTacToeGame:
 
+    
+    
     def __init__(self) -> None:
         self.grid = [
             [Cell.EMPTY,Cell.EMPTY,Cell.EMPTY],
             [Cell.EMPTY,Cell.EMPTY,Cell.EMPTY],
             [Cell.EMPTY,Cell.EMPTY,Cell.EMPTY]
         ]
+
+        self.player = Cell.CROSS
     
     def get_grid(self):
         return self.grid
@@ -34,7 +38,15 @@ class TicTacToeGame:
     def play(self, cell_number:int):
 
         x, y = cell_to_x_y[cell_number]
-        self.grid[x][y] = Cell.CROSS
+        self.grid[x][y] = self.player
+
+        self.move_to_next_player()
 
         return self
+    
+    def move_to_next_player(self):
+        if self.player == Cell.CROSS:
+            self.player = Cell.ROUND
+        else:
+            self.player = Cell.CROSS
     
