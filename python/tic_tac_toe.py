@@ -1,7 +1,7 @@
 from enum import Enum
 
 class Cell(Enum):
-    EMPTY = " "
+    EMPTY = "_"
     CROSS = "X"
     ROUND = "O"
 
@@ -64,7 +64,9 @@ class TicTacToeGame:
             self.player = Cell.CROSS
 
     def __check_grid(self):
-        if self.__get_cell(1) == self.__get_cell(2) == self.__get_cell(3) and self.__get_cell(1) is not Cell.EMPTY:
+        if self.__is_same_cells_value({1,2,3}):
+            return self.__get_cell(1)
+        if self.__is_same_cells_value({4,5,6}):
             return self.__get_cell(1)
         else:
             return None
@@ -72,4 +74,11 @@ class TicTacToeGame:
     def __get_cell(self, cell_number:int):
         x, y = cell_to_x_y[cell_number]
         return self.grid[x][y]
+    
+    def __is_same_cells_value(self, cells:list()):
+        values = [self.__get_cell(value) for value in cells]
 
+        if Cell.EMPTY in values:
+            return False
+
+        return all(value == values[0] for value in values)
