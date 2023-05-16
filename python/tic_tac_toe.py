@@ -5,6 +5,20 @@ class Cell(Enum):
     CROSS = "X"
     ROUND = "O"
 
+
+cell_to_x_y =    {
+            1: (0,0),
+            2: (0,1),
+            3: (0,2),
+            4: (1,0),
+            5: (1,1),
+            6: (1,2),
+            7: (2,0),
+            8: (2,1),
+            9: (2,2)
+}
+
+
 class TicTacToeGame:
 
     def __init__(self) -> None:
@@ -19,7 +33,8 @@ class TicTacToeGame:
     
     def play(self, cell_number:int):
 
-        self.grid[0][0] = Cell.CROSS
+        x, y = cell_to_x_y[cell_number]
+        self.grid[x][y] = Cell.CROSS
 
         return self
     
