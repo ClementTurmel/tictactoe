@@ -7,10 +7,8 @@ grid_separator = "+---+---+---+"
 def show_grid(grid):
     string_grid = F"{grid_separator}\n"
     cell_number = 1
-    #string_grid = ""
 
     for lign in grid:
-        #string_grid +="|"
         for cell in lign:
             value = cell.value if cell is not Cell.EMPTY else str(cell_number)
             string_grid += f"| {value} "
