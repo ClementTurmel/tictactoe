@@ -18,6 +18,7 @@ cell_to_x_y =    {
             9: (2,2)
 }
 
+winning_cells_list = [{1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}]
 
 class TicTacToeWinner:
     def __init__(self, TicTacToeGame) -> None:
@@ -47,7 +48,12 @@ class TicTacToeGame:
     def play(self, cell_number:int):
 
         x, y = cell_to_x_y[cell_number]
-        self.grid[x][y] = self.player
+
+        if self.grid[x][y] is Cell.EMPTY:
+            self.grid[x][y] = self.player
+        else:
+            print(f"Can't play on cell {cell_number}")
+            return self
 
         have_a_winner = self.__check_grid()
 
@@ -58,18 +64,15 @@ class TicTacToeGame:
             return self
     
     def __move_to_next_player(self):
-        if self.player == Cell.CROSS:
-            self.player = Cell.ROUND
-        else:
-            self.player = Cell.CROSS
+        self.player = Cell.ROUND if self.player == Cell.CROSS else Cell.CROSS
+
 
     def __check_grid(self):
-        if self.__is_same_cells_value({1,2,3}):
-            return self.__get_cell(1)
-        if self.__is_same_cells_value({4,5,6}):
-            return self.__get_cell(1)
-        else:
-            return None
+        for winning_cells in winning_cells_list:
+            if self.__is_same_cells_value(winning_cells):
+                return True
+        
+        return False
         
     def __get_cell(self, cell_number:int):
         x, y = cell_to_x_y[cell_number]

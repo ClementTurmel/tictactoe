@@ -63,6 +63,17 @@ def test_when_play_is_called_to_time_we_have_a_cross_and_a_round():
         .get_grid() == expected
 
 
+def test_when_play_is_called_to_time_one_same_cell_second_play_is_not_taken_into_account():
+    expected = [
+        [_,_,_], # 1 2 3
+        [_,_,_], # 4 5 6
+        [X,_,_]  # 7 8 9
+    ]
+
+    assert TicTacToeGame()\
+        .play(7)\
+        .play(7)\
+        .get_grid() == expected
 
 
 @pytest.mark.parametrize("play_instructions, expected_winner, expected_grid", [
@@ -90,3 +101,5 @@ def test_all_play_instruction_are_executed_with_have_a_winner(play_instructions,
     assert game.get_grid()   == expected_grid
     assert game.get_winner() == expected_winner
 
+#TODO: test all winning possibilities
+#TODO: end game if grid is full without winner
