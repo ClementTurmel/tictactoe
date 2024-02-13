@@ -19,15 +19,15 @@ cell_to_x_y =    {
 }
 
 winning_cells_list = [
-    {1,2,3}, {4,5,6}, {7,8,9}, #ligns
-    {1,4,7}, {2,5,8}, {3,6,9}, #columns
-    {1,5,9}, {3,5,7}           #diagonals
+    [1,2,3], [4,5,6], [7,8,9], #ligns
+    [1,4,7], [2,5,8], [3,6,9], #columns
+    [1,5,9], [3,5,7]           #diagonals
 ]          
 
-class TicTacToeWinner:
-    def __init__(self, TicTacToeGame) -> None:
+class TicTacToeGameEnd:
+    def __init__(self, TicTacToeGame, winner=None) -> None:
         self.grid = TicTacToeGame.grid
-        self.winner = TicTacToeGame.player
+        self.winner = winner
     
     def get_grid(self):
         return self.grid
@@ -59,10 +59,12 @@ class TicTacToeGame:
             print(f"Can't play on cell {cell_number}")
             return self
 
-        have_a_winner = self.check_grid()
+        winner = self.check_grid_for_winner()
 
-        if have_a_winner:
-            return TicTacToeWinner(self)
+        if winner:
+            return TicTacToeGameEnd(self, winner)
+        elif self.is_grid_full():
+            return TicTacToeGameEnd(self)
         else:
             self.__move_to_next_player()
             return self
@@ -71,12 +73,15 @@ class TicTacToeGame:
         self.player = Cell.ROUND if self.player == Cell.CROSS else Cell.CROSS
 
 
-    def check_grid(self):
+    def check_grid_for_winner(self):
         for winning_cells in winning_cells_list:
             if self.__is_same_cells_value(winning_cells):
-                return True
+                return self.__get_cell(winning_cells[0])
         
         return False
+    
+    def is_grid_full(self):
+        return all(True if Cell.EMPTY not in lign else False for lign in self.get_grid())
         
     def __get_cell(self, cell_number:int):
         x, y = cell_to_x_y[cell_number]

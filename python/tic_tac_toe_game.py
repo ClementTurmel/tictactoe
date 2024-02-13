@@ -1,25 +1,36 @@
-from tic_tac_toe import TicTacToeGame, TicTacToeWinner
+from tic_tac_toe import TicTacToeGame, TicTacToeGameEnd, Cell
 
+#python tic_tac_toe_game.py
 
+grid_separator = "+---+---+---+"
 
 def show_grid(grid):
-    #string_grid =" _ _ _ \n"
-    string_grid = ""
+    string_grid = F"{grid_separator}\n"
+    cell_number = 1
+    #string_grid = ""
+
     for lign in grid:
         #string_grid +="|"
         for cell in lign:
-            string_grid += f"{cell.value}"
-        string_grid +="\n"
+            value = cell.value if cell is not Cell.EMPTY else str(cell_number)
+            string_grid += f"| {value} "
+            cell_number += 1
+        string_grid +=f"|\n{grid_separator}\n"
+
+        
     print(string_grid)
 
 
 if __name__ == '__main__':
     print("Welcome to tic tac toe game ! ")
     game = TicTacToeGame()
-    while not isinstance(game, TicTacToeWinner):
+    while not isinstance(game, TicTacToeGameEnd):
         show_grid(game.get_grid())
         player_input = input(f"player {game.player.value} it's your turn :")
         game = game.play(int(player_input))
 
     show_grid(game.get_grid())
-    print(f"player {game.get_winner().value} win !")
+    if game.get_winner() is not None:
+        print(f"player {game.get_winner().value} win !")
+    else:
+        print("Equality")

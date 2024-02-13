@@ -1,5 +1,5 @@
 import pytest
-from tic_tac_toe import TicTacToeGame, TicTacToeWinner, Cell
+from tic_tac_toe import TicTacToeGame, TicTacToeGameEnd, Cell
 
 #https://codingdojo.org/kata/tic-tac-toe/
 # +---+---+---+
@@ -101,7 +101,27 @@ def test_all_play_instruction_are_executed_with_have_a_winner(play_instructions,
     assert game.get_grid()   == expected_grid
     assert game.get_winner() == expected_winner
 
-#TODO: test all winning possibilities
+    
+def test_game_end_is_full_most_return_true_with_a_full_grid():
+    game = TicTacToeGame()
+    game.grid = [
+        [X,X,O], # 1 2 3
+        [O,O,X], # 4 5 6
+        [X,X,O]  # 7 8 9
+    ]
+
+    assert game.is_grid_full()
+
+def test_game_end_is_full_most_return_false_with_a_non_full_grid():
+    game = TicTacToeGame()
+    game.grid = [
+        [_,_,O], # 1 2 3
+        [O,O,X], # 4 5 6
+        [X,X,O]  # 7 8 9
+    ]
+
+    assert game.is_grid_full() is False
+
 
 
 @pytest.mark.parametrize("grid", [
@@ -142,9 +162,7 @@ def test_all_play_instruction_are_executed_with_have_a_winner(play_instructions,
 def test_there_is_8_way_to_win(grid):
     game = TicTacToeGame()
     game.grid = grid
-    assert game.check_grid() == True
+    assert game.check_grid_for_winner() == Cell.CROSS
 
 
 
-
-#TODO: end game if grid is full without winner
