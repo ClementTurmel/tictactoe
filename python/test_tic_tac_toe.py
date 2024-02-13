@@ -102,4 +102,49 @@ def test_all_play_instruction_are_executed_with_have_a_winner(play_instructions,
     assert game.get_winner() == expected_winner
 
 #TODO: test all winning possibilities
+
+
+@pytest.mark.parametrize("grid", [
+    (
+        [X,X,X], # 1 2 3
+        [_,_,_], # 4 5 6
+        [_,_,_]  # 7 8 9
+    ),(
+        [_,_,_], # 1 2 3
+        [X,X,X], # 4 5 6
+        [_,_,_]  # 7 8 9
+    ),(
+        [_,_,_], # 1 2 3
+        [_,_,_], # 4 5 6
+        [X,X,X]  # 7 8 9
+    ),(
+        [X,_,_], # 1 2 3
+        [X,_,_], # 4 5 6
+        [X,_,_]  # 7 8 9
+    ),(
+        [_,X,_], # 1 2 3
+        [_,X,_], # 4 5 6
+        [_,X,_]  # 7 8 9
+    ),(
+        [_,_,X], # 1 2 3
+        [_,_,X], # 4 5 6
+        [_,_,X]  # 7 8 9
+    ),(
+        [X,_,_], # 1 2 3
+        [_,X,_], # 4 5 6
+        [_,_,X]  # 7 8 9
+    ),(
+        [_,_,X], # 1 2 3
+        [_,X,_], # 4 5 6
+        [X,_,_]  # 7 8 9
+    ),
+])
+def test_there_is_8_way_to_win(grid):
+    game = TicTacToeGame()
+    game.grid = grid
+    assert game.check_grid() == True
+
+
+
+
 #TODO: end game if grid is full without winner
