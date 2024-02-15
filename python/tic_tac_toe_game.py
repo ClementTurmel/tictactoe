@@ -4,7 +4,8 @@ from tic_tac_toe import TicTacToeGame, TicTacToeGameEnd, Cell
 
 grid_separator = "+---+---+---+"
 
-def show_grid(grid):
+
+def build_grid(grid):
     string_grid = F"{grid_separator}\n"
     cell_number = 1
 
@@ -15,8 +16,11 @@ def show_grid(grid):
             cell_number += 1
         string_grid +=f"|\n{grid_separator}\n"
 
-        
-    print(string_grid)
+    return string_grid
+
+
+def show_grid(grid):
+    print(build_grid(grid))
 
 
 if __name__ == '__main__':

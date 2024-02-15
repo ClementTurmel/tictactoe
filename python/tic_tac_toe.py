@@ -87,7 +87,7 @@ class TicTacToeGame:
         x, y = cell_to_x_y[cell_number]
         return self.grid[x][y]
     
-    def __is_same_cells_value(self, cells:list()):
+    def __is_same_cells_value(self, cells:list):
         values = [self.__get_cell(value) for value in cells]
 
         if Cell.EMPTY in values:
